@@ -1,4 +1,4 @@
-import { cleanEnv, str, port, url } from 'envalid';
+import { cleanEnv, str, port, url, num } from 'envalid';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -15,6 +15,11 @@ const env = cleanEnv(process.env, {
   SMTP_USER: str(),
   SMTP_PASS: str(),
   FROM_EMAIL: str(),
+  CLOUDINARY_CLOUD_NAME: str(),
+  CLOUDINARY_API_KEY: str(),
+  CLOUDINARY_API_SECRET: str(),
+  CLOUDINARY_FOLDER: str(),
+  FILE_UPLOAD_LIMIT: num(),
 });
 
 export const config = {
@@ -38,5 +43,14 @@ export const config = {
       pass: env.SMTP_PASS,
     },
     from: env.FROM_EMAIL,
+  },
+  fileUpload: {
+    limit: env.FILE_UPLOAD_LIMIT,
+  },
+  cloudinary: {
+    cloudName: env.CLOUDINARY_CLOUD_NAME,
+    apiKey: env.CLOUDINARY_API_KEY,
+    apiSecret: env.CLOUDINARY_API_SECRET,
+    folder: env.CLOUDINARY_FOLDER,
   },
 } as const;

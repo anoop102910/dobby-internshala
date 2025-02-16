@@ -15,7 +15,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
-        <ThemeProvider>
+        {/* <ThemeProvider> */}
           <AuthProvider>
             <Routes>
               <Route path="/" element={<Layout />}>
@@ -26,11 +26,16 @@ function App() {
                 } />
                 <Route path="login" element={<Login />} />
                 <Route path="register" element={<Register />} />
+                <Route path="folder/:folderId" element={
+                  <ProtectedRoute>
+                    <Home />
+                  </ProtectedRoute>
+                } />
               </Route>
             </Routes>
             <Toaster />
           </AuthProvider>
-        </ThemeProvider>
+        {/* </ThemeProvider> */}
       </BrowserRouter>
     </QueryClientProvider>
   );

@@ -8,6 +8,8 @@ import authRoutes from './authModule/auth.routes';
 import { ApiError } from './utils/ApiError';
 import postRoutes from './postModule/post.routes';
 import { PassportConfig } from './authModule/passport.config';
+import folderRoutes from './folderModule/folder.routes';
+import imageRoutes from './imageModule/image.routes';
 
 const app: Express = express();
 
@@ -25,6 +27,8 @@ app.use(cookieParser());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/posts', postRoutes);
+app.use('/api/folders', folderRoutes);
+app.use('/api/images', imageRoutes);
 
 // Basic route
 app.get('/', (_req: Request, res: Response) => {

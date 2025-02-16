@@ -1,6 +1,6 @@
     import axios, { InternalAxiosRequestConfig } from 'axios';
 import { config } from '@/config';
-import { AuthResponse, Post, User } from '@/types/api.types';
+import { AuthResponse, Post, User, Folder, Image } from '@/types/api.types';
 
 type ApiAuthResponse = {
   status: string;
@@ -15,6 +15,19 @@ type ApiPostResponse = {
 type ApiUserResponse = {
   status: string;
   data: User;
+};
+
+type ApiFolderResponse = {
+  status: string;
+  data: {
+    folders: Folder[];
+    images: Image[];
+  };
+};
+
+type ApiImageResponse = {
+  status: string;
+  data: Image[];
 };
 
 const api = axios.create({
@@ -44,5 +57,29 @@ export const apiService = {
       (await api.get('/posts')).data,
     create: async (data: { title: string; content: string }): Promise<ApiPostResponse> => 
       (await api.post('/posts', data)).data,
+  },
+  folders: {
+    getFolders: async (parentId?: string): Promise<ApiFolderResponse> => 
+      (await api.get(`/folders${parentId ? `/${parentId}` : ''}`)).data,
+    createFolder: async (data: { name: string; parentId?: string }): Promise<ApiFolderResponse> => 
+      (await api.post('/folders', data)).data,
+    updateFolder: async (folderId: string, data: { name: string }): Promise<ApiFolderResponse> => 
+      (await api.put(`/folders/${folderId}`, data)).data,
+    deleteFolder: async (folderId: string): Promise<ApiFolderResponse> => 
+      (await api.delete(`/folders/${folderId}`)).data,
+  },
+  images: {
+    uploadImage: (formData: FormData) =>
+      api.post<ApiResponse<Image>>('/images', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }),
+    getImages: (folderId: string) =>
+      api.get<ApiResponse<Image[]>>(`/images/${folderId}`),
+    deleteImage: (imageId: string) =>
+      api.delete<ApiResponse<Image>>(`/images/${imageId}`),
+    renameImage: (imageId: string, name: string) =>
+      api.put<ApiResponse<Image>>(`/images/${imageId}`, { name }),
   },
 }; 

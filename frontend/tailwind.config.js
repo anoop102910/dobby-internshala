@@ -7,6 +7,13 @@ export default {
   ],
   theme: {
   	extend: {
+		colors: {
+			primary: "#6C5CE7",
+			secondary: "#5A4BD1",
+			tertiary: "#4A3BB2",
+			quaternary: "#3A2A93",
+			quinary: "#2A1A74",
+		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
