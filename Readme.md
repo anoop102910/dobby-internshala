@@ -1,50 +1,35 @@
-I’m building a Google Drive-like application where users can create folders, upload images efficiently.
+# Cloud Drive
 
-Tech Stack:
-Cloudinary → For image uploads
-MongoDB → For storing images and user data
-Data Models:
+A cloud drive application built with Bun, React, and MongoDB.  It is a simple cloud drive application that allows you to upload, download, and share images
 
-User Model:
-username
-email
-password
+# Installation
 
-Root Folder Model:
-name
-size
-ownerId (Reference to the user who created the folder)
-itemsCount (number of items in the folder)
+To install the project using Bun, follow these steps:
 
-Folder Model:
-name
-size
-folderId? (Reference to parent folder)
-ownerId (Reference to the user who created the folder)
-itemsCount (number of items in the folder)
+1. Ensure you have [Bun](https://bun.sh/) installed on your machine.
+2. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd <repository-directory>
+   ```
+3. Install the dependencies:
+   ```bash
+   bun install
+   ```
 
-Image Model (Images):
-imageUrl
-size
-type (jpg, png, etc.)
-folderId (Reference to the folder it belongs to)
-ownerId (Reference to the user who created the image)
+4. Create a `.env` file in the root directory and add the following variables:
+   ```bash
+   MONGODB_URI=your_mongodb_uri
+   JWT_SECRET=your_jwt_secret
+   JWT_EXPIRATION_TIME=your_jwt_expiration_time
+   NODE_ENV=development
+   FRONTEND_URL=http://localhost:3000
+   CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+   CLOUDINARY_API_KEY=your_cloudinary_api_key
+   CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+   CLOUDINARY_FOLDER=your_cloudinary_folder
+   FILE_UPLOAD_LIMIT=10
+   ```
 
-Functionality:
-✅ Users can create new folders
-✅ Inside a folder, users can upload images
-✅ ShadCN Dialog is used for folder creation (similar to the UI in the provided screenshot)
-✅ Clicking "New Folder" opens a modal where users enter a folder name, and on submit, a new folder is created using frontend params (folder name + folder ID)
 
-API Endpoints:
-📂 /folders (Auth Required)
-→ Returns all root folders for the authenticated user
-
-📂 /folders/:folderId (Auth Required)
-→ Returns all folders and images inside the given folder
-
-🔹 Create Folder
-🔹 Add Image to Folder
-🔹 Delete Folder
-🔹 Delete Image
-
+Replace the values with your specific settings.
