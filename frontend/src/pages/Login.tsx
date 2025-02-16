@@ -116,13 +116,28 @@ export const Login = () => {
                 )}
               />
 
-              <button
-                type="submit"
-                disabled={isPending}
-                className="w-full py-3 px-4 bg-[#6C5CE7] hover:bg-[#5A4BD1] text-white rounded-lg font-medium transition-colors disabled:opacity-70"
-              >
-                {isPending ? "Logging in..." : "Login Now"}
-              </button>
+              <div className="space-y-3">
+                <button
+                  type="submit"
+                  disabled={isPending}
+                  className="w-full py-3 px-4 bg-[#6C5CE7] hover:bg-[#5A4BD1] text-white rounded-lg font-medium transition-colors disabled:opacity-70"
+                >
+                  {isPending ? "Logging in..." : "Login Now"}
+                </button>
+
+                <button
+                  type="button"
+                  disabled={isPending}
+                  onClick={() => {
+                    form.setValue('email', import.meta.env.VITE_DEMO_EMAIL || 'anoop@gmail.com');
+                    form.setValue('password', import.meta.env.VITE_DEMO_PASSWORD || 'welcomeE2');
+                    form.handleSubmit(onSubmit)();
+                  }}
+                  className="w-full py-3 px-4 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-medium transition-colors disabled:opacity-70"
+                >
+                  {isPending ? "Logging in..." : "Try Demo Account"}
+                </button>
+              </div>
             </form>
           </Form>
         </div>
