@@ -10,6 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Upload } from "lucide-react";
 import { toast } from "react-hot-toast";
+import { AxiosError } from "axios";
 
 interface UploadImageDialogProps {
   parentId?: string;
@@ -60,7 +61,11 @@ export const UploadImageDialog = ({ parentId }: UploadImageDialogProps) => {
           toast.success('Image uploaded successfully');
         },
         onError: (error) => {
-          toast.error('Failed to upload image');
+          if(error instanceof AxiosError) {
+            toast.error(error.response?.data?.message || "Failed to upload image");
+          } else {
+            toast.error("Failed to upload image");
+          }
         },
       }
     );

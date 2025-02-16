@@ -3,7 +3,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Home } from './pages/Home';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
-import { ThemeProvider } from './components/shared/ThemeProvider';
 import { Layout } from './components/shared/Layout';
 import { ProtectedRoute } from './components/shared/ProtectedRoute';
 import { Toaster } from "react-hot-toast";

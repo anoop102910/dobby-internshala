@@ -2,17 +2,6 @@ import { useQueryClient } from '@tanstack/react-query';
 import { apiService } from '@/services/api.service';
 import { useCustomQuery, useCustomMutation } from '@/hooks/use-query-hooks';
 
-interface Image {
-  _id: string;
-  imageUrl: string;
-  name: string;
-  size: number;
-  type: string;
-  folderId?: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
 interface ImageCallbacks {
   onSuccess?: () => void;
   onError?: (error: Error) => void;

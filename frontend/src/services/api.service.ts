@@ -25,9 +25,9 @@ type ApiFolderResponse = {
   };
 };
 
-type ApiImageResponse = {
+type ApiResponse<T> = {
   status: string;
-  data: Image[];
+  data: T;
 };
 
 const api = axios.create({

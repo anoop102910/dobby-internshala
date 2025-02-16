@@ -7,7 +7,6 @@ import { HTTP_STATUS } from './utils/httpStatus';
 import authRoutes from './authModule/auth.routes';
 import { ApiError } from './utils/ApiError';
 import postRoutes from './postModule/post.routes';
-import { PassportConfig } from './authModule/passport.config';
 import folderRoutes from './folderModule/folder.routes';
 import imageRoutes from './imageModule/image.routes';
 
@@ -37,17 +36,19 @@ app.get('/', (_req: Request, res: Response) => {
 
 // Error handling middleware
 app.use(((err: Error, req: Request, res: Response, next: NextFunction) => {
-  console.error(err.stack);
   if (err instanceof ApiError) {
-    return res.status(err.statusCode).json({
+    res.status(err.statusCode).json({
       status: 'error',
       message: err.message,
     });
+    return;
   }
+  
   res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({
     status: 'error',
     message: err.message || 'Something went wrong!',
   });
+  return;
 }) as ErrorRequestHandler);
 
 app.listen(config.port, () => {

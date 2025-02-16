@@ -14,7 +14,6 @@ import {
 import { toast } from "react-hot-toast";
 import { AxiosError } from "axios";
 import { useAuth } from "@/context/AuthProvider";
-import { config } from "@/config";
 
 interface LoginFormData {
   email: string;
@@ -23,7 +22,7 @@ interface LoginFormData {
 
 export const Login = () => {
   const navigate = useNavigate();
-  const { login, isPending, error } = useLogin();
+  const { login, isPending} = useLogin();
   const [showPassword, setShowPassword] = useState(false);
   const { setIsAuthenticated } = useAuth();
   const form = useForm<LoginFormData>({
@@ -48,10 +47,6 @@ export const Login = () => {
         }
       },
     });
-  };
-
-  const handleGoogleLogin = () => {
-    window.location.href = `${config.apiUrl}/api/auth/google`;
   };
 
   return (
@@ -131,7 +126,7 @@ export const Login = () => {
             </form>
           </Form>
         </div>
-                
+
         {/* Right side - Image */}
         <div className="hidden md:block relative ">
           <img

@@ -2,16 +2,6 @@ import { useQueryClient } from '@tanstack/react-query';
 import { apiService } from '@/services/api.service';
 import { useCustomQuery, useCustomMutation } from '@/hooks/use-query-hooks';
 
-interface Folder {
-  _id: string;
-  name: string;
-  size: number;
-  itemsCount: number;
-  parentId?: string;
-  createdAt: string;
-  updatedAt: string;
-}
-
 interface CreateFolderInput {
   name: string;
   parentId?: string;
@@ -36,7 +26,7 @@ export const useCreateFolder = () => {
 
   const { mutate: createFolderMutation, ...rest } = useCustomMutation({
     mutationFn: apiService.folders.createFolder,
-    onSuccess: (data) => {
+    onSuccess: (_data) => {
       queryClient.invalidateQueries({ queryKey: ['folders'] });
     },
   });

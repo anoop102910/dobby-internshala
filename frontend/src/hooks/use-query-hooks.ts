@@ -12,7 +12,7 @@ interface QueryResult<T> {
   error: Error | null;
 }
 
-interface MutationResult<T, R> {
+interface MutationResult<T, _R> {
   mutate: (data: T, options?: { onSuccess?: () => void; onError?: (error: Error) => void }) => void;
   isPending: boolean;
   error: Error | null;

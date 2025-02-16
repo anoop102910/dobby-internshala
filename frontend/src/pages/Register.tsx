@@ -13,7 +13,7 @@ interface RegisterFormData {
 
 export const Register = () => {
   const navigate = useNavigate();
-  const { register, isPending, error } = useRegister();
+  const { register, isPending} = useRegister();
   const [showPassword, setShowPassword] = useState(false);
   
   const form = useForm<RegisterFormData>({

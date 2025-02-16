@@ -1,4 +1,4 @@
-import { FolderDot, Folder as FolderIcon, HardDrive } from "lucide-react";
+import { Folder as FolderIcon, HardDrive } from "lucide-react";
 import { useDeleteFolder, useFolders, useRenameFolder } from "@/services/folder.service";
 import { Button } from "@/components/ui/button";
 import { CreateFolderDialog } from "./CreateFolderDialog";
@@ -14,7 +14,7 @@ import { sortItems } from "@/lib/utils";
 import { FolderContextMenu } from "./FolderContextMenu";
 import { toast } from "react-hot-toast";
 import type { Folder } from "@/types/folder";
-import type { Sortable, SortDirection, SortField } from "@/types/sort";
+import type { SortDirection, SortField } from "@/types/sort";
 import { Link } from "react-router-dom";
 
 interface FolderListProps {
@@ -171,7 +171,6 @@ export const FolderList = ({
         <h3 className="text-lg font-medium mb-4">Images</h3>
         <ImageGrid 
           images={images}
-          folderId={parentId} 
           searchQuery={searchQuery}
           sortConfig={sortConfig}
         />

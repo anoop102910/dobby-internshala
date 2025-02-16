@@ -13,11 +13,11 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { DeleteConfirmDialog } from "@/components/shared/DeleteConfirmDialog";
-import type { IImage } from "@/types/image";
+import { Image } from "@/types/api.types";
 
 interface ImageContextMenuProps {
   children: React.ReactNode;
-  image: IImage;
+  image: Image;
   onView: () => void;
   onDelete: () => void;
   onRename: (newName: string) => void;

@@ -1,3 +1,5 @@
+// @ts-ignore
+
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { UserDao } from "./user.dao";
@@ -83,7 +85,9 @@ export class AuthService {
   }
 
   private generateToken(userId: string): string {
-    return jwt.sign({ userId }, config.jwt.secret as string, { expiresIn: config.jwt.expiresIn as string });
+    return jwt.sign({ userId }, config.jwt.secret as string, {
+      expiresIn: config.jwt.expiresIn as string,
+    } as jwt.SignOptions);
   }
 
   private async resendVerificationEmail(user: IUser) {

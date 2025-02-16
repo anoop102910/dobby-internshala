@@ -11,7 +11,6 @@ import {
   Share, 
   Download 
 } from "lucide-react";
-import { AlertDialog } from "@/components/ui/alert-dialog";
 import { useState } from "react";
 import { DeleteConfirmDialog } from "@/components/shared/DeleteConfirmDialog";
 import { RenameDialog } from "@/components/shared/RenameDialog";

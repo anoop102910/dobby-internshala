@@ -1,4 +1,4 @@
-import { useImages, useDeleteImage } from "@/services/image.service";
+import { useDeleteImage } from "@/services/image.service";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import { toast } from "react-hot-toast";
@@ -17,17 +17,15 @@ import { formatFileSize } from "@/lib/utils";
 import { ImagePreview } from "./ImagePreview";
 import { useMemo } from "react";
 import { sortItems } from "@/lib/utils";
-import { SortDirection, SortField } from "@/types/sort";
-
+import { Sortable, SortDirection, SortField } from "@/types/sort";
+import { Image } from "@/types/api.types";
 interface ImageGridProps {
-  folderId?: string;
   searchQuery?: string;
   sortConfig?: string;
-  images: IImage[];
+  images: Image[];
 }
 
 export const ImageGrid = ({ 
-  folderId, 
   searchQuery = "",
   sortConfig = "name_asc",
   images
@@ -46,7 +44,7 @@ export const ImageGrid = ({
 
     // Sort
     const [field, direction] = sortConfig.split('_') as [SortField, SortDirection];
-    return sortItems(items, field, direction);
+    return sortItems(items as unknown as Sortable[], field, direction);
   }, [images, searchQuery, sortConfig]);
 
   const handleDelete = (imageId: string) => {
