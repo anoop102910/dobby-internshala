@@ -8,7 +8,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { ImagePlus, Upload } from "lucide-react";
+import { Upload } from "lucide-react";
 import { toast } from "react-hot-toast";
 
 interface UploadImageDialogProps {
@@ -36,19 +36,19 @@ export const UploadImageDialog = ({ parentId }: UploadImageDialogProps) => {
     setDragActive(false);
 
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      handleUpload(e.dataTransfer.files[0]);
+      handleFile(e.dataTransfer.files[0]);
     }
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      handleUpload(e.target.files[0]);
+      handleFile(e.target.files[0]);
     }
   };
 
-  const handleUpload = (file: File) => {
-    if (!file.type.startsWith("image/")) {
-      toast.error("Please upload an image file");
+  const handleFile = (file: File) => {
+    if (!file.type.startsWith('image/')) {
+      toast.error('Please upload an image file');
       return;
     }
 
@@ -57,10 +57,10 @@ export const UploadImageDialog = ({ parentId }: UploadImageDialogProps) => {
       {
         onSuccess: () => {
           setOpen(false);
-          toast.success("Image uploaded successfully");
+          toast.success('Image uploaded successfully');
         },
-        onError: () => {
-          toast.error("Failed to upload image");
+        onError: (error) => {
+          toast.error('Failed to upload image');
         },
       }
     );
@@ -69,19 +69,21 @@ export const UploadImageDialog = ({ parentId }: UploadImageDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" size="sm">
-          <ImagePlus className="mr-2 h-4 w-4" />
-          Upload Image
-        </Button>
+        <Button>Upload Image</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Upload Image</DialogTitle>
+          <DialogTitle>Upload an introduction</DialogTitle>
+          <p className="text-sm text-muted-foreground">
+            For best results, image uploads should be at least 1080p (1920 x 1080 pixels) in JPG format.
+          </p>
         </DialogHeader>
         <div
-          className={`mt-4 border-2 border-dashed rounded-lg p-8 text-center ${
-            dragActive ? "border-primary" : "border-neutral-300"
-          }`}
+          className={`
+            mt-4 p-12 border-2 border-dashed rounded-lg
+            ${dragActive ? 'border-primary bg-primary/5' : 'border-muted-foreground/25'}
+            ${isPending ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
+          `}
           onDragEnter={handleDrag}
           onDragLeave={handleDrag}
           onDragOver={handleDrag}
@@ -99,13 +101,29 @@ export const UploadImageDialog = ({ parentId }: UploadImageDialogProps) => {
             htmlFor="image-upload"
             className="cursor-pointer flex flex-col items-center"
           >
-            <Upload className="h-8 w-8 mb-2 text-neutral-500" />
-            <p className="text-sm text-neutral-600">
+            <Upload className="h-8 w-8 mb-2 text-muted-foreground" />
+            <p className="text-sm text-muted-foreground text-center">
               {isPending
                 ? "Uploading..."
-                : "Drag and drop an image here, or click to select"}
+                : "Drag and drop image files to upload"}
             </p>
+            <Button
+              onClick={() => document.getElementById('image-upload')?.click()}
+              variant="outline"
+              className="mt-4"
+              disabled={isPending}
+            >
+              Select files
+            </Button>
           </label>
+        </div>
+        <div className="mt-4">
+          <h3 className="font-medium mb-2">Step-by-step guide</h3>
+          <div className="text-sm text-muted-foreground space-y-2">
+            <p>1. Click "Select files" or drag and drop your image</p>
+            <p>2. Choose a image that best represents you</p>
+            <p>3. Your image will be private until you publish your profile</p>
+          </div>
         </div>
       </DialogContent>
     </Dialog>

@@ -43,7 +43,6 @@ export const FolderList = ({
   const sortedAndFilteredFolders = useMemo(() => {
     let items = folders || [];
     
-    // Filter
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
       items = items.filter((folder: Folder) => 
@@ -51,7 +50,6 @@ export const FolderList = ({
       );
     }
 
-    // Sort
     const [field, direction] = sortConfig.split('_') as [SortField, SortDirection];
     return sortItems(items, field, direction);
   }, [foldersData, searchQuery, sortConfig]);
